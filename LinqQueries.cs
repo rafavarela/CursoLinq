@@ -124,4 +124,23 @@ public class LinqQueries
         return titulos.Remove(titulos.Length - 1);
     }
 
+    public double GetAverageLengthTitles() {
+        return librosCollection
+            .Average(l => l.Title.Length);
+    }
+
+    //public IEnumerable<IGrouping<int, Book>> GetGroupedBooks()
+    // public IEnumerable<IOrderedEnumerable<Book>> GetGroupedBooks()
+    // {
+    //     return librosCollection
+    //                 .Where(l => l.PublishedDate.Year >= 2000)
+    //                 .OrderBy(l => l.PublishedDate.Year)
+    //                 .GroupBy(l => l.PublishedDate.Year)
+    //                 .Select(lGroup => new { 
+    //                     Key = lGroup.Key,
+    //                     Books = lGroup.OrderBy(l => l.Title)
+    //                 })
+    //                 .OrderBy(lGroup => lGroup.Books.First().Title);
+    // }
+
 }

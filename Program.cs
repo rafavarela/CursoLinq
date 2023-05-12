@@ -60,7 +60,44 @@ void ImprimirValores(IEnumerable<Book> listadelibros)
 
 
 // Console.WriteLine($"Suma de paginas de libros en entre 0 y 500: {queries.GetBookPages500()}");
-Console.WriteLine($"Titulos de libros publicados despues del 2015:{queries.Libros2015Concatenados()}");
+// Console.WriteLine($"Titulos de libros publicados despues del 2015:{queries.Libros2015Concatenados()}");
+
+// Console.WriteLine($"Promedio de caracteres de los titulos de los libros :{queries.GetAverageLengthTitles()}");
+
+
+// Todos los libros publicados desde el 2000 agrupados por año:
+// var bookGroups = queries.GetGroupedBooks();
+
+// foreach (var group in bookGroups) {
+//     Console.WriteLine($"{group.Key} - {group.Count()}");
+
+//     foreach (var pubYear in group) {
+//         Console.WriteLine($"    {pubYear.Title}");
+//     }
+
+//     Console.WriteLine();
+// }
+
+
+var bookGroups = libros
+            .Where(l => l.PublishedDate.Year >= 2000)
+                    .GroupBy(l => l.PublishedDate.Year)
+                    .Select(lGroup => new { 
+                        Key = lGroup.Key,
+                        Books = lGroup.OrderBy(l => l.Title)
+                    })
+                    .OrderBy(lGroup => lGroup.Key);
+
+
+foreach (var group in bookGroups) {
+    Console.WriteLine($"{group.Key} - {group.Books.Count()}");
+
+    foreach (var pubYear in group.Books) {
+        Console.WriteLine($"    {pubYear.Title}");
+    }
+
+    Console.WriteLine();
+}
 
 // Animales ---------------------------------------------------------------------------------
 // List<Animal> animales = new List<Animal>();
